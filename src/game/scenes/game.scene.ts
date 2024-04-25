@@ -75,6 +75,9 @@ export class GameScene extends Scene {
                }
                const timeLeft = `${min}:${sec}`;
                this.#gameService.gameCountdown$.next(timeLeft);
+               if (this.timerCountdown <= 0) {
+                  this.startGameOverScene();
+               }
             },
             loop: true,
          });
