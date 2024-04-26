@@ -9,11 +9,11 @@ import { NgOptimizedImage } from '@angular/common';
    standalone: true,
    imports: [RecapTotalScoresComponent, NgOptimizedImage],
    template: `
-      <div class="game-menu flex items-center justify-center flex-col">
+      <div class="game-menu flex items-center justify-center flex-col h-full">
          <img ngSrc="{{ assetsPath() }}logoStart.png" width="500" height="400" priority />
          <div class="instructions-container flex items-center justify-center">
             <div class="flex flex-row items-center">
-               <p>Use A,D,S,W to move around, SPACE to HIT enemy</p>
+               <p class="p-2">Use A,D,S,W to move around, SPACE to HIT enemy</p>
             </div>
          </div>
          <div class="mt-2 flex flex-row items-center">
@@ -39,7 +39,6 @@ import { NgOptimizedImage } from '@angular/common';
       `
          .game-menu {
             width: 100%;
-            padding: 20px;
          }
          .instructions-container {
             background: rgba(0, 0, 0, 0.3803921569);

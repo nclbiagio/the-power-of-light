@@ -23,20 +23,22 @@ import { NgOptimizedImage } from '@angular/common';
    standalone: true,
    imports: [AsyncPipe, NgClass, NgOptimizedImage],
    template: `
-      <div class="flex flex-col justify-center items-center">
+      <div class="flex flex-col justify-center items-center h-full">
          @if (image()) {
             <img ngSrc="{{ image() }}" class="msg-img" width="500" height="400" priority />
          }
          <div class="flex flex-row-reverse w-full">
-            <button
-               (click)="this.goToEndOfMessage()"
-               [ngClass]="{ 'hover:bg-sky-600/80': !textCompleted(), disabled: textCompleted() }"
-               class="msg-btn-xl focus-ring relative flex items-center justify-center rounded-2xl px-5 py-2.5 bg-sky-600 text-white"
-               type="button"
-               [disabled]="textCompleted()"
-            >
-               Complete Message!
-            </button>
+            @if (!textCompleted()) {
+               <button
+                  (click)="this.goToEndOfMessage()"
+                  [ngClass]="{ 'hover:bg-sky-600/80': !textCompleted(), disabled: textCompleted() }"
+                  class="msg-btn-xl focus-ring relative flex items-center justify-center rounded-2xl px-5 py-2.5 bg-sky-600 text-white"
+                  type="button"
+                  [disabled]="textCompleted()"
+               >
+                  Complete Message!
+               </button>
+            }
          </div>
          <div #textElement [style]="canvasWidth()" class="text-container text-animation"></div>
          <button
@@ -80,6 +82,21 @@ import { NgOptimizedImage } from '@angular/common';
          .msg-btn.disabled,
          .msg-btn-xl.disabled {
             opacity: 0.4;
+         }
+         @media only screen and (max-width: 500px) {
+            .text-container {
+               padding: 2px;
+               line-height: 18px;
+               font-size: 10px;
+            }
+            .msg-img {
+               max-width: 100%;
+               margin-bottom: 4px;
+            }
+            .msg-btn-xl {
+               font-size: 10px;
+               width: 120px;
+            }
          }
       `,
    ],

@@ -23,7 +23,7 @@ import { DebugComponent } from '../app/components/debug.component';
          @if (messageService.showMessage$ | async; as showMessage) {
             @if (showMessage) {
                <div class="layer message-layer">
-                  <app-message />
+                  <app-message class="h-full" />
                </div>
             }
          }
@@ -40,7 +40,7 @@ import { DebugComponent } from '../app/components/debug.component';
          }
          @if (currentScene() === 'start') {
             <div class="scene game-scene flex items-center justify-center w-full h-full">
-               <app-game-start-menu />
+               <app-game-start-menu class="h-full" />
             </div>
          }
          @if (currentScene() === 'game') {
