@@ -20,10 +20,16 @@ export class GameService {
    updateGameScore$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
    addedNewEnemies$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
    //----------
-   assetsPath = window.location.href.includes('localhost') ? 'assets/' : '../assets/'; //only for itch.io game jam otherwise use 'assets/'
+   assetsPath = window.location.href.includes('localhost') ? 'assets/' : this.getOriginAssets(); //only for itch.io game jam otherwise use 'assets/'
+
    loadProgress$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
    constructor() {}
+
+   getOriginAssets() {
+      const origin = window.location.href.replace('/index.html', '');
+      return `${origin}/assets/`;
+   }
 
    static getInstance(): GameService {
       if (this._instance) {
