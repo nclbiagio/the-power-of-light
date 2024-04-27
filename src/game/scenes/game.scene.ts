@@ -39,6 +39,10 @@ export class GameScene extends Scene {
    }
 
    startGameOverScene() {
+      if (this.timer) {
+         this.timer.destroy();
+         this.timer = null;
+      }
       this.scene.start('GameOverScene');
    }
 

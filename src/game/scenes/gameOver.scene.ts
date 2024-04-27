@@ -13,6 +13,8 @@ export class GameOverScene extends Scene {
    init() {
       this.#gameService.scene$.next('gameOver');
       EventBus.on('restart', () => {
+         this.#gameService.gameCountdown$.next(null);
+         this.#gameService.updateGameScore$.next(0);
          this.#gameService.scene$.next('start');
          //location.reload()
       });
