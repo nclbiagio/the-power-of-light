@@ -3,27 +3,21 @@ import { GameService } from '../../game/services/game.service';
 import { EventBus } from '../../game/EventBus';
 import { RecapTotalScoresComponent } from './recap-total-scores.component';
 import { NgOptimizedImage } from '@angular/common';
+import { GameMusicComponent } from './music.component';
 
 @Component({
    selector: 'app-game-start-menu',
    standalone: true,
-   imports: [RecapTotalScoresComponent, NgOptimizedImage],
+   imports: [RecapTotalScoresComponent, NgOptimizedImage, GameMusicComponent],
    template: `
-      <div class="game-menu flex items-center justify-center flex-col h-full">
+      <div class="game-menu flex items-center justify-center flex-col w-full h-full">
          <img ngSrc="{{ assetsPath() }}logoStart.png" width="500" height="400" priority />
-         <div class="instructions-container flex items-center justify-center">
+         <div class="instructions-container flex items-center justify-center rounded w-full pb-4">
             <div class="flex flex-row items-center">
                <p class="p-2">Use A,D,S,W to move around, SPACE to HIT enemy</p>
             </div>
          </div>
-         <div class="mt-2 flex flex-row items-center">
-            <div class="mr-2">
-               <span class="checkbox-label">Menu Audio</span>
-            </div>
-            <div class="checkbox">
-               <input (click)="toggle()" type="checkbox" [(checked)]="checked" class="checkbox-input" />
-            </div>
-         </div>
+         <app-music />
          <div class="mt-4 flex justify-center">
             <button
                (click)="playGame()"
@@ -37,87 +31,13 @@ import { NgOptimizedImage } from '@angular/common';
    `,
    styles: [
       `
-         .game-menu {
-            width: 100%;
-         }
          .instructions-container {
             background: rgba(0, 0, 0, 0.3803921569);
-            border-radius: 4px;
-            width: 360px;
             line-height: 22px;
             font-size: 14px;
             color: white;
-            width: 100%;
             overflow: hidden;
             text-align: center;
-            padding-bottom: 10px;
-         }
-         .checkbox-label {
-            color: #fff;
-         }
-
-         .checkbox .checkbox-input {
-            appearance: none;
-            background-color: #dfe1e4;
-            border-radius: 72px;
-            border-style: none;
-            flex-shrink: 0;
-            height: 20px;
-            margin: 0;
-            position: relative;
-            width: 30px;
-            cursor: pointer;
-         }
-
-         .checkbox .checkbox-input::before {
-            bottom: -6px;
-            content: '';
-            left: -6px;
-            position: absolute;
-            right: -6px;
-            top: -6px;
-         }
-
-         .checkbox .checkbox-input,
-         .checkbox .checkbox-input::after {
-            transition: all 100ms ease-out;
-         }
-
-         .checkbox .checkbox-input::after {
-            background-color: #fff;
-            border-radius: 50%;
-            content: '';
-            height: 14px;
-            left: 3px;
-            position: absolute;
-            top: 3px;
-            width: 14px;
-         }
-
-         .checkbox input[type='checkbox'] {
-            cursor: pointer;
-         }
-
-         .checkbox .checkbox-input:hover {
-            background-color: #c9cbcd;
-            transition-duration: 0s;
-         }
-
-         .checkbox .checkbox-input:checked {
-            background-color: #6e79d6;
-         }
-
-         .checkbox .checkbox-input:checked::after {
-            background-color: #fff;
-            left: 13px;
-         }
-
-         .checkbox :focus:not(.focus-visible) {
-            outline: 0;
-         }
-
-         .checkbox .checkbox-input:checked:hover {
-            background-color: #535db3;
          }
       `,
    ],

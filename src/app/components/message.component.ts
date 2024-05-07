@@ -1,10 +1,10 @@
 import {
    AfterContentInit,
-   AfterViewInit,
    ChangeDetectionStrategy,
    Component,
    DestroyRef,
    ElementRef,
+   HostListener,
    OnInit,
    Signal,
    WritableSignal,
@@ -13,7 +13,7 @@ import {
    viewChild,
 } from '@angular/core';
 import { MessageService } from '../../game/services/message.service';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, fromEvent } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
@@ -21,26 +21,16 @@ import { NgOptimizedImage } from '@angular/common';
 @Component({
    selector: 'app-message',
    standalone: true,
-   imports: [AsyncPipe, NgClass, NgOptimizedImage],
+   imports: [NgClass, NgOptimizedImage],
    template: `
       <div class="flex flex-col justify-center items-center h-full">
          @if (image()) {
             <img ngSrc="{{ image() }}" class="msg-img" width="500" height="400" priority />
          }
-         <div class="flex flex-row-reverse w-full">
-            @if (!textCompleted()) {
-               <button
-                  (click)="this.goToEndOfMessage()"
-                  [ngClass]="{ 'hover:bg-sky-600/80': !textCompleted(), disabled: textCompleted() }"
-                  class="msg-btn-xl focus-ring relative flex items-center justify-center rounded-2xl px-5 py-2.5 bg-sky-600 text-white"
-                  type="button"
-                  [disabled]="textCompleted()"
-               >
-                  Complete Message!
-               </button>
-            }
+         <div [class]="{ invisible: textCompleted() }" class="flex flex-row-reverse w-full">
+            <p class="text-alert pb-2 w-full text-center blink">Press space to skip the message!</p>
          </div>
-         <div #textElement [style]="canvasWidth()" class="text-container text-animation"></div>
+         <div #textElement [style]="canvasWidth()" class="flex items-center p-5 rounded text-container text-animation"></div>
          <button
             (click)="this.messageOnCloseCallback()"
             [ngClass]="{ 'hover:bg-sky-600/80': textCompleted(), disabled: !textCompleted() }"
@@ -55,10 +45,6 @@ import { NgOptimizedImage } from '@angular/common';
    styles: [
       `
          .text-container {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            border-radius: 4px;
             background-color: #b2bfbade;
             z-index: 9999;
             line-height: 20px;
@@ -82,6 +68,18 @@ import { NgOptimizedImage } from '@angular/common';
          .msg-btn.disabled,
          .msg-btn-xl.disabled {
             opacity: 0.4;
+         }
+         .text-alert {
+            font-size: 12px;
+            color: #fff;
+         }
+         .blink {
+            animation: blicker 1s linear infinite;
+         }
+         @keyframes blicker {
+            50% {
+               opacity: 0;
+            }
          }
          @media only screen and (max-width: 500px) {
             .text-container {
@@ -136,6 +134,13 @@ export class MessageComponent implements OnInit, AfterContentInit {
    }
 
    ngOnInit(): void {}
+
+   @HostListener('document:keyup', ['$event'])
+   keyboardEvent(event: KeyboardEvent) {
+      if (event.code === 'Space') {
+         this.goToEndOfMessage();
+      }
+   }
 
    get messageService() {
       return this.#messageService;
