@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, OnInit, Output, WritableSignal, inject, signal } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GameService } from '../../game/services/game.service';
 
 @Component({
    selector: 'app-game-alert-pulse',
    standalone: true,
-   imports: [AsyncPipe],
+   imports: [],
    template: `
       @if (pulse()) {
          <div class="pulse"></div>

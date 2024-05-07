@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, OnInit, Output, WritableSignal, inject, signal } from '@angular/core';
-import { AsyncPipe, JsonPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GameService } from '../../game/services/game.service';
 
 @Component({
    selector: 'app-game-countdown',
    standalone: true,
-   imports: [AsyncPipe, JsonPipe],
+   imports: [],
    template: `
       <div class="countdown">
          <div class="counter"><b>Time left</b> {{ countdown() }}</div>

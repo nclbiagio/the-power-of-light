@@ -1,15 +1,13 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, OnInit, Output, WritableSignal, inject, input, signal } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, WritableSignal, inject, input, signal } from '@angular/core';
 import { GameService } from '../../game/services/game.service';
 
 @Component({
    selector: 'app-recap-total-scores',
    standalone: true,
-   imports: [AsyncPipe],
+   imports: [],
    template: `
       @if (availableForScene() === 'gameOver') {
-         <div class="score">
+         <div class="score flex justify-center items-center flex-col w-full h-full">
             <div class="label text-center m-4">
                <b>Total score points</b>: <span class="ml-4">{{ currentScore() }}</span>
             </div>
@@ -31,14 +29,6 @@ import { GameService } from '../../game/services/game.service';
    `,
    styles: [
       `
-         .score {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-         }
          .label {
             font-size: 14px;
             color: #fff;

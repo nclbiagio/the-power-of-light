@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, OnInit, Output, inject, signal } from '@angular/core';
-import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { combineLatest, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GameService } from '../../game/services/game.service';
@@ -7,11 +7,11 @@ import { GameService } from '../../game/services/game.service';
 @Component({
    selector: 'app-game-debug',
    standalone: true,
-   imports: [AsyncPipe, JsonPipe, NgClass],
+   imports: [NgClass],
    template: `
       <div class="debugFps flex flex-col">
-         <span class="fps element">FPS: {{ fpsDebug() }}</span>
-         <span class="delta element">DELTA: {{ deltaDebug() }}</span>
+         <span class="fps element mb-4">FPS: {{ fpsDebug() }}</span>
+         <span class="delta element mb-4">DELTA: {{ deltaDebug() }}</span>
          <button
             [disabled]="!appHasLocalStorage"
             (click)="resetStorageData()"
@@ -24,10 +24,6 @@ import { GameService } from '../../game/services/game.service';
    `,
    styles: [
       `
-         .debugFps .element {
-            margin-bottom: 10px;
-         }
-
          .debugFps button:disabled {
             opacity: 0.4;
          }

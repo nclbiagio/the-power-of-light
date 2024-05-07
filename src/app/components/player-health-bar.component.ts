@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, OnInit, Output, WritableSignal, inject, signal } from '@angular/core';
-import { AsyncPipe, JsonPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GameService } from '../../game/services/game.service';
 
 @Component({
    selector: 'app-player-health-bar',
    standalone: true,
-   imports: [AsyncPipe, JsonPipe],
+   imports: [],
    template: `
       <div class="player-hp flex flex-row items-center justify-center relative">
          <img src="{{ assetsPath() }}icon-player.png" class="mr-2" />
