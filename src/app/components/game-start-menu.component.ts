@@ -49,22 +49,11 @@ export class GameStartMenuComponent implements OnInit {
 
    assetsPath = signal(this.#gameService.assetsPath);
 
-   checked = model(false);
-
    constructor() {}
 
    ngOnInit(): void {}
 
    playGame() {
       EventBus.emit('play-game');
-   }
-
-   toggle() {
-      this.checked.set(!this.checked());
-      if (this.checked()) {
-         EventBus.emit('play-sound');
-      } else {
-         EventBus.emit('stop-sound');
-      }
    }
 }
